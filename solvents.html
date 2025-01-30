@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jemena Trading Limited - Products</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+                /* Back Button Styles */
+                .back-button {
+            position: fixed;
+            top: 5px;
+            left: 5px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+            border: 2px solid rgba(255, 255, 255, 0.3); /* Border with transparency */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px; /* Rounded corners for the box */
+            text-decoration: none;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            z-index: 9999; /* Ensures the button stays on top of all elements */
+        }
+
+        .back-button svg {
+           width: 25px;
+           height: 25px;
+           fill: #000000; /* Solid red arrow */
+           transition: transform 0.3s ease, filter 0.3s ease;
+           filter: drop-shadow(0 0 5px #5f5656);
+        }
+
+        .back-button:hover {
+           background-color: rgba(0, 0, 0, 0.2); /* Slight red tint on hover */
+           box-shadow: 0 0 10px #0c3963, 0 0 20px #0c2c68; /* Glow around the box */
+         }
+
+        .back-button:hover svg {
+           transform: scale(1.2); /* Slightly enlarges the arrow on hover */
+           filter: drop-shadow(0 0 10px #ff0000);
+        }
+
+        /* Hero Section Styles */
+        .hero {
+            position: relative;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('images/s1.jpg');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 255, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Slideshow Styles */
+        .slideshow-container {
+            max-width: 100%;
+            position: relative;
+            margin: 20px auto;
+            overflow: hidden;
+            height: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            background-color: #f4f4f4;
+        }
+
+        .slideshow-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+            background-color: transparent;
+        }
+
+        .slideshow-container img.active {
+            display: block;
+            animation: fadeEffect 2s ease-in-out;
+        }
+
+        @keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Product List Section */
+        .product-list-section {
+            padding: 50px 20px;
+            background-color: #ffffffbe;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-list-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #004080;
+        }
+
+        .product-list-section p {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Search Bar */
+        #product-search {
+            display: block;
+            margin: 0 auto 20px;
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            font-size: 16px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #004080;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Neon Glow Effect */
+        .glow-text {
+            color: #333;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .glow-text:hover {
+            color: #000000;
+            text-shadow: none;
+        }
+            /* Contact Section */
+    .contact-form-section {
+        padding: 80px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        background: url('images/IMG_2223.jpg') no-repeat center center/cover;
+        position: relative;
+        color: #ffffff;
+        overflow: hidden;
+        gap: 40px;
+        flex-wrap: wrap; /* Ensures responsiveness for smaller screens */
+    }
+
+    /* Dark Overlay */
+    .contact-form-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+        z-index: 0;
+        backdrop-filter: blur(5px);
+    }
+
+    .contact-form-section h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        color: #ffcc00;
+        font-family: 'Poppins', sans-serif;
+        z-index: 1;
+    }
+
+    /* Contact Form Styling */
+    .contact-form {
+        flex: 1;
+        max-width: 50%; /* Half the screen for form */
+        position: relative;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 40px 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        animation: slideUp 1.2s ease-in-out;
+    }
+
+    .form-group {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        color: #fff;
+        outline: none;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        background-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group label {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        color: #ffcc00;
+        font-size: 14px;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        transform: translateY(-50%);
+    }
+
+    .form-group input:focus + label,
+    .form-group textarea:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+        top: -10px;
+        font-size: 12px;
+        color: #ffcc00;
+    }
+
+    .form-group textarea {
+        min-height: 120px;
+        resize: none;
+    }
+
+    /* Submit Button */
+    .contact-form button {
+        padding: 15px 30px;
+        background-color: #ffcc00;
+        color: #333;
+        border: none;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-form button:hover {
+        transform: scale(1.05);
+        background-color: #e6b800;
+        box-shadow: 0 8px 20px rgba(255, 204, 0, 0.6);
+    }
+
+    /* Contact Details Styling */
+    .contact-details {
+        flex: 1;
+        max-width: 40%; /* Remaining space for contact details */
+        text-align: left;
+        position: relative;
+        z-index: 1;
+        font-size: 16px;
+    }
+
+    .contact-details h2 {
+        margin-bottom: 20px;
+        color: #ffcc00;
+    }
+
+    .contact-details p {
+        margin-bottom: 15px;
+        line-height: 1.8;
+        color: #fff;
+    }
+
+    .contact-details a {
+        color: #ffcc00;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .contact-details a:hover {
+        color: #e6b800;
+    }
+
+    /* Contact Image Styling */
+    .contact-image {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .contact-image img {
+        width: 100%;
+        max-width: 400px; /* Limit image size */
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-image img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+    
+        /* Footer Section */
+        .footer {
+        background-color: #012344; /* Dark blue background */
+        color: white;
+        text-align: center;
+        padding: 15px 10px;
+        position: relative;
+    }
+
+    .footer-container {
+        display: flex;
+        flex-wrap: wrap; /* Allow wrapping for smaller screens */
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 20px;
+    }
+
+    /* Logo Section */
+    .footer-logo img {
+        max-width: 150px;
+        border-radius: 10px;
+    }
+
+    /* Contact Information Section */
+    .footer-contacts {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        text-align: left;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .contact-item i {
+        font-size: 18px;
+        color: #ffcc00; /* Yellow icons for contrast */
+    }
+
+    .contact-item p {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    /* Footer Links Section */
+    .footer-links {
+        text-align: left;
+    }
+
+    .footer-links a {
+        color: #ffcc00; /* Yellow links */
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 14px;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: #fff; /* White on hover */
+    }
+
+    /* Footer Image Section */
+    .footer-image img {
+        max-width: 300px;
+        border-radius: 10px;
+    }
+
+    /* Copyright Text */
+    .footer p {
+        margin: 10px 0 0;
+        font-size: 14px;
+    }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #product-search {
+                width: 80%;
+            }
+
+            table {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #product-search {
+                width: 90%;
+            }
+
+            th, td {
+                font-size: 12px;
+            }
+        }
+                    /* Responsive Design for Mobile */
+    @media (max-width: 768px) {
+        .contact-form-section {
+            flex-direction: column;
+            padding: 40px 15px;
+        }
+
+        .contact-form, .contact-details {
+            max-width: 100%; /* Take full width */
+        }
+
+        .contact-form {
+            margin-bottom: 30px; /* Add spacing between form and details */
+        }
+
+        .contact-details h2 {
+            font-size: 28px;
+        }
+    }
+        /* Responsive Design for Mobile */
+        @media (max-width: 768px) {
+        .footer-container {
+            flex-direction: column; /* Stack all elements vertically */
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-contacts {
+            align-items: center; /* Center-align contact details */
+        }
+
+        .contact-item {
+            justify-content: center; /* Center-align contact items */
+        }
+
+        .footer-links {
+            margin-top: 15px;
+        }
+
+        .footer-image img {
+            max-width: 200px; /* Smaller image for mobile */
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Back Button -->
+    <a href="index.html" class="back-button"> 
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+    </a>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <img id="loading-logo" src="images/Jemena-logo.png" alt="Loading">
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Solvents</h1>
+        </div>
+    </header>
+
+    <!-- Product List Section -->
+    <section class="product-list-section">
+        <h2>Unleashing the Power of Precision Solvents</h2>
+        <p>Elevate your processes with our premium range of solvents, meticulously crafted to meet the highest standards in performance and versatility.
+            From enabling seamless cleaning to enhancing formulations in cosmetics, paints, and industrial applications, our solvents are the backbone of countless innovations. Designed for efficiency and reliability, they empower you to achieve precision in every task, whether you’re crafting the perfect blend, maintaining immaculate tools, or pushing the boundaries of industrial excellence.
+            With tailored packaging options to suit your needs, our solvents deliver unmatched quality and consistency. Step into a world where every drop works as hard as you do.
+        <p>
+    <!-- Slideshow Section -->
+        <div class="slideshow-container">
+            <img src="images/_MG_1732.JPG" alt="Image 1" class="active">
+            <img src="images/IMG_0079.jpg" alt="Image 2">
+            <img src="images/IMG_9864.jpg" alt="Image 3">
+        </div>
+        
+        <!-- Search Bar -->
+        <input 
+            type="text" 
+            id="product-search" 
+            placeholder="Search products..." 
+            onkeyup="filterProducts()">
+
+        <!-- Products Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Application</th>
+                    <th>Packaging Sizes</th>
+                </tr>
+            </thead>
+            <tbody id="product-table">
+                <tr class="product-row">
+                    <td>1</td>
+                    <td class="glow-text">Acetone</td>
+                    <td class="glow-text">A versatile solvent used in cleaning, thinning, and cosmetic formulations.</td>
+                    <td class="glow-text">5kg, 20kg</td>
+                </tr>
+                <tr class="product-row">
+                    <td>2</td>
+                    <td class="glow-text">Butyl Glycol Ether</td>
+                    <td class="glow-text">Solvent for paints, coatings, and cleaning products.</td>
+                    <td class="glow-text">5kg, 20kg</td>
+                </tr>
+                <tr class="product-row">
+                    <td>3</td>
+                    <td class="glow-text">Carbomer 940</td>
+                    <td class="glow-text">Thickening agent in personal care and cosmetic products.</td>
+                    <td class="glow-text">Custom Packaging Available, 20kg</td>
+                </tr>
+                <tr class="product-row">
+                    <td>4</td>
+                    <td class="glow-text">Denatured IMS 96%</td>
+                    <td class="glow-text">Industrial solvent and disinfectant for various applications.</td>
+                    <td class="glow-text">5kg, 20kg</td>
+                </tr>
+                <tr class="product-row">
+                    <td>5</td>
+                    <td class="glow-text">Isopropyl Alcohol Pure</td>
+                    <td class="glow-text">A multipurpose solvent and sanitizer in cleaning and cosmetic products.</td>
+                    <td class="glow-text">5kg, 20kg</td>
+                </tr>
+                <tr class="product-row">
+                    <td>6</td>
+                    <td class="glow-text">Methanol Denatured</td>
+                    <td class="glow-text">Solvent for industrial and laboratory use.</td>
+                    <td class="glow-text">5kg, 20kg </td>
+                </tr>
+                <tr class="product-row">
+                    <td>7</td>
+                    <td class="glow-text">Solvent C9 (Naphtha 100)</td>
+                    <td class="glow-text">Used in paints, coatings, and industrial cleaning applications.</td>
+                    <td class="glow-text">5kg, 20kg</td>
+                </tr>
+                <tr class="product-row">
+                    <td>8</td>
+                    <td class="glow-text">White Spirit</td>
+                    <td class="glow-text">Solvent for thinning paints, cleaning tools, and degreasing surfaces.</td>
+                    <td class="glow-text">5kg, 20kg</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+                <!-- Contact Form Section -->
+                <section class="contact-form-section" id="contact">
+                    <!-- Contact Form -->
+                    <div class="contact-form">
+                        <h2>Send Us a Message</h2>
+                        <form action="mailto:info@jemenatrading.co.ke" method="post" enctype="text/plain">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder=" " required>
+                                <label>Your Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder=" " required>
+                                <label>Your Email</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder=" " required></textarea>
+                                <label>Your Message</label>
+                            </div>
+                            <button type="submit">Send Message</button>
+                        </form>
+                    </div>
+                
+                    <!-- Contact Details -->
+                    <div class="contact-details">
+                        <h2>Contact Details</h2>
+                        <p><strong>Jemena Trading Limited</strong></p>
+                        <p>Rangwe Road, Off Lunga Lunga Rd, Nairobi</p>
+                        <p>
+                            Tel No: 
+                            <a href="tel:+254795792234">+254 795 792 234</a>
+                        </p>
+                        <p>
+                            Email: 
+                            <a href="mailto:info@jemenatrading.co.ke">info@jemenatrading.co.ke</a>
+                        </p>
+                        <!-- Contact Image -->
+                        <div class="contact-image">
+                            <img src="images/Jemena-logo.png" alt="Jemena Location">
+                        </div>
+                    </div>
+                </section>
+                    <!-- Footer -->
+                <footer class="footer">
+                    <div class="footer-container">
+                        <!-- Logo Section -->
+                        <div class="footer-logo">
+                            <img src="images/Jemena-logo.png" alt="Jemena Trading Logo">
+                        </div>
+                
+                        <!-- Contact Information -->
+                        <div class="footer-contacts">
+                            <div class="contact-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <p>Tel No: <a href="tel:+254795792234" style="color: #ffcc00;">+254 795 792 234</a></p>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <p>Email: <a href="mailto:info@jemenatrading.co.ke" style="color: #ffcc00;">info@jemenatrading.co.ke</a></p>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <p>Rangwe Road, Off Lunga Lunga Rd, Nairobi</p>
+                            </div>
+                        </div>
+                
+                        <!-- Footer Links -->
+                        <div class="footer-links">
+                            <a href="#home">Home</a>
+                            <a href="#about">About Us</a>
+                            <a href="#products">Our Products</a>
+                            <a href="#location">Location</a>
+                            <a href="#contact">Contact</a>
+                        </div>
+                    </div>
+                
+                    <p>&copy; 2024 Jemena Trading Limited. All rights reserved.</p>
+                </footer>
+
+    <script>
+        // Loading Screen Script
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.display = 'none';
+        });
+
+        // Automatic Slideshow
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.slideshow-container img');
+
+        function showNextImage() {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+        }
+
+        setInterval(showNextImage, 5000);
+
+        // Search Functionality
+        function filterProducts() {
+            const input = document.getElementById('product-search').value.toLowerCase();
+            const rows = document.querySelectorAll('.product-row');
+
+            rows.forEach(row => {
+                const name = row.children[1].textContent.toLowerCase();
+                const application = row.children[2].textContent.toLowerCase();
+                const packaging = row.children[3].textContent.toLowerCase();
+
+                if (name.includes(input) || application.includes(input) || packaging.includes(input)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
