@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jemena Trading Limited</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        
+        /* Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fcfcfc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        #loading-logo {
+            width: 150px;
+            animation: pulseGlow 1.0s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px #ff0000) drop-shadow(0 0 20px #ff0000) drop-shadow(0 0 30px #0000ff);
+            }
+            50% {
+                filter: drop-shadow(0 0 20px #ff0000) drop-shadow(0 0 30px #0000ff) drop-shadow(0 0 40px #0000ff);
+            }
+        }
+
+        /* Hide overflow after loading screen */
+        .loaded body {
+            overflow: auto;
+        }
+
+        /* Scroll Animation Styles */
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-animation.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Rotate animation for logo */
+        .rotating {
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Top Bar with Contact Info */
+        .top-nav {
+            background: #ffffff;
+            color: rgb(0, 0, 0);
+            padding: 5px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid; /* Add space for gradient line */
+            border-image: linear-gradient(90deg, #004080, #e60000); /* Blue to red gradient */
+            border-image-slice: 1; /* Ensures full gradient effect is displayed */
+        }
+
+        .top-nav .company-name {
+            font-size: 30px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .top-nav .company-name img {
+            width: 100px;
+            margin-right: 5px;
+        }
+
+        .contact-info-bar {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info-bar div {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info-bar i {
+            margin-right: 8px;
+        }
+
+        .contact-info-bar a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info-bar a:hover {
+            color: #ff0000;
+        }
+
+    /* Navigation Bar Styles */
+        nav {
+            background-color: #ffffff; /* Background color of the navbar */
+            padding: 15px 20px;
+        }
+
+        nav ul {
+            list-style: none; /* Remove bullet points */
+            display: flex; /* Display items in a row */
+            justify-content: center; /* Space items evenly */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            position: relative; /* Needed for dropdown positioning */
+        }
+
+        nav ul li a {
+           color: #000000; /* White text color */
+           text-decoration: none; /* Remove underline */
+           padding: 10px 15px;
+           transition: color 0.3s ease, text-shadow 0.3s ease; /* Transition for glow effect */
+        }
+
+    /* Dropdown Menu Styles */
+        .dropdown {
+            display: none; /* Hide dropdown by default */
+            position: absolute; /* Position it absolutely */
+            top: 100%; /* Align below the parent item */
+            left: 0;
+            background-color: #000000; /* Background color for the dropdown */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for dropdown */
+            z-index: 1000; /* Ensure it appears above other content */
+        }
+
+       .dropdown li {
+            white-space: nowrap; /* Prevent line breaks */
+        }
+
+        nav ul li:hover .dropdown {
+            display: block; /* Show dropdown on hover */
+        }
+
+        .dropdown a {
+            display: block; /* Make dropdown links block elements */
+            color: #fff; /* White text for dropdown links */
+            padding: 10px 15px;
+        }
+
+    /* Neon Glow Effect */
+        nav ul li a:hover,
+        .dropdown a:hover {
+            color: #ff0000; /* Neon red on hover */
+            text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #0000ff, 0 0 40px #0000ff; /* Neon blue glow */
+        }
+
+
+        /* Hero Section */
+        .hero {
+            background: url('IMG_9981.jpg') no-repeat center center/cover;
+            height: 530px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin: 0;
+            z-index: 1;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-top: 20px;
+            z-index: 1;
+            animation: slideUp 1.5s ease-in-out;
+        }
+
+        .hero button {
+            padding: 15px 30px;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 50px;
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 30px;
+            cursor: pointer;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .hero button:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+     /* About Us Section Fullscreen Layout */
+     .about-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+        background: #ffffff;
+        color: #000000;
+    }
+
+    .about-content {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        max-width: 1200px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.979);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Image Slideshow */
+    .image-slideshow {
+        width: 50%;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .slideshow-container {
+        display: flex;
+        transition: transform 1s ease;
+        width: 100%;
+        animation: slideShow 12s infinite;
+    }
+
+    .slide {
+        min-width: 100%;
+        height: 100%;
+    }
+
+    .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    /* Text Content */
+    .about-text {
+        width: 50%;
+        padding: 20px;
+        animation: fadeIn 1.5s ease-in;
+    }
+
+    .about-text h2 {
+        font-size: 36px;
+        color: #000000;
+        margin-bottom: 15px;
+        text-shadow: 0 0 5px #ffffff, 0 0 10px #004080;
+    }
+
+    .about-text p {
+        font-size: 18px;
+        line-height: 1.8;
+        color: #000000;
+        margin-bottom: 15px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideShow {
+        0% { transform: translateX(0); }
+        33% { transform: translateX(-100%); }
+        66% { transform: translateX(-200%); }
+        100% { transform: translateX(0); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .about-content {
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .image-slideshow, .about-text {
+            width: 100%;
+        }
+
+        .about-text h2 {
+            font-size: 28px;
+        }
+    }
+
+
+    /* Why Choose Us Section Styles */
+    .why-choose-us-section {
+        padding: 60px 20px;
+        background-image: url('IMG_0071.jpg'); /* Placeholder for your custom background */
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+        position: relative;
+        color: #ffffff;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .why-choose-us-section:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Dark overlay for better contrast */
+        backdrop-filter: blur(8px); /* Blurred background effect */
+        z-index: 1;
+    }
+
+    .why-choose-us-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        color: #f1f1f1;
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s forwards ease-out 0.3s;
+    }
+
+    /* Grid Layout */
+    .why-choose-us-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Why Choose Us Item */
+    .why-item {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        width: 280px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1s forwards ease-out;
+    }
+
+    .why-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Icon Styles */
+    .why-item .icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: #ffeb3b; /* Gold color for icons */
+    }
+
+    /* Text Styling */
+    .why-item h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #ffffff;
+    }
+
+    .why-item p {
+        color: #d3d3d3;
+        line-height: 1.6;
+    }
+
+    /* Fade-in Up Animation */
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+
+    /* Products Section */
+.products-section {
+    padding: 50px 20px;
+    background-color: #f8f9fa; /* Light background for contrast */
+    text-align: center;
+}
+
+.products-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #333; /* Dark color for the heading */
+}
+
+.products-grid {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: center; /* Center items on the line */
+    gap: 20px;
+}
+
+.product-category {
+    background-color: #fff; /* White background for product cards */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 123, 255, 0); /* Base shadow with no glow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation for hover effect */
+    overflow: hidden; /* Ensures image doesn't overflow */
+    width: 300px; /* Fixed width for consistency */
+    height: 400px; /* Fixed height for all cards */
+    display: flex;
+    flex-direction: column; /* Arrange content vertically */
+    justify-content: space-between; /* Distribute content evenly */
+    position: relative;
+    z-index: 1;
+}
+
+.product-category:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 123, 255, 0.6); /* Glow effect on hover */
+}
+
+/* Glowing border */
+.product-category::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    left: -10px;
+    right: -10px;
+    background: linear-gradient(45deg, rgba(0, 123, 255, 0.3), rgba(0, 255, 123, 0.3));
+    border-radius: 12px; /* Slightly larger radius than the card */
+    opacity: 0; /* Initially hidden */
+    z-index: -1;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.product-category:hover::before {
+    opacity: 1; /* Show glowing border */
+    transform: scale(1.05); /* Slightly enlarge the glow */
+}
+
+.product-image {
+    width: 100%; /* Full width inside the card */
+    height: 200px; /* Fixed height for uniform image size */
+    object-fit: cover; /* Ensures image fits within dimensions without distortion */
+    border-bottom: 4px solid #007bff; /* Blue accent line under images */
+}
+
+.product-category h3 {
+    font-size: 1.5rem;
+    margin: 15px 0;
+}
+
+.product-category h3 a {
+    text-decoration: none; /* Remove underline from links */
+    color: #007bff; /* Blue color for links */
+    transition: color 0.3s ease; /* Color change on hover */
+}
+
+.product-category h3 a:hover {
+    color: #0056b3; /* Darker blue on hover */
+}
+
+.product-category p {
+    color: #666; /* Grey color for product descriptions */
+    padding: 0 15px 20px; /* Padding for description text */
+    flex-grow: 1; /* Makes text take up available space for alignment */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .products-grid {
+        flex-direction: column; /* Stack cards vertically on smaller screens */
+    }
+
+    .product-category {
+        width: 90%; /* Adjust card width for smaller screens */
+        height: auto; /* Let cards adjust height automatically */
+    }
+
+    .product-image {
+        height: auto; /* Maintain aspect ratio for images on smaller screens */
+    }
+}
+
+
+
+
+        /* Location Section */
+        .location {
+            padding: 40px;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+
+        .location h2 {
+            color: #004080;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .location iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+    /* Contact Form Section Styles */
+    .contact-form {
+        padding: 80px 20px;
+        background: url('contact-background.jpg') no-repeat center center/cover;
+        position: relative;
+        color: #ffffff;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .contact-form::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+        z-index: 0;
+        backdrop-filter: blur(5px);
+    }
+
+    .contact-form h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+        color: #ffcc00;
+        position: relative;
+        z-index: 1;
+        font-family: 'Arial', sans-serif;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Form Styling */
+    .contact-form form {
+        position: relative;
+        z-index: 1;
+        max-width: 600px;
+        margin: 0 auto;
+        background: rgba(15, 29, 46, 0.8);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        animation: slideUp 1.2s ease-in-out;
+    }
+
+    /* Form Field Styles with Floating Label */
+    .form-group {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-bottom: 2px solid #ffcc00;
+        border-radius: 5px 5px 0 0;
+        font-size: 16px;
+        color: #fff;
+        outline: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Floating Label Styles */
+    .form-group label {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        color: #ffcc00;
+        font-size: 16px;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        transform: translateY(-50%);
+    }
+
+    .form-group input:focus + label,
+    .form-group textarea:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+        top: -10px;
+        font-size: 12px;
+        color: #ffcc00;
+    }
+
+    /* Textarea Styling */
+    .form-group textarea {
+        min-height: 120px;
+        resize: none;
+    }
+
+    /* Submit Button Styling */
+    .contact-form button {
+        padding: 15px 30px;
+        background-color: #ffcc00;
+        color: #333;
+        border: none;
+        border-radius: 50px;
+        font-size: 18px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .contact-form button:hover {
+        transform: scale(1.05);
+        background-color: #e6b800;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(50px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+        /* Footer */
+        .footer {
+            background-color: #004080;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        /* Logo Section */
+        .footer-logo img {
+            max-width: 150px;
+            border-radius: 10px;
+        }
+
+        /* Contact Information Section */
+        .footer-contacts {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item i {
+            font-size: 18px;
+            color: #ffcc00;
+        }
+
+        .contact-item p {
+            font-size: 14px;
+            margin: 0;
+        }
+
+       
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        /* Footer Links Section */
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #ffcc00;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        /* Footer Image Section */
+        .footer-image img {
+            max-width: 300px;
+            border-radius: 10px;
+        }
+
+        /* Copyright Text */
+        .footer p {
+            margin: 10px 0 0;
+            font-size: 14px;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-contacts {
+                align-items: center;
+            }
+
+            .contact-item {
+                justify-content: center;
+            }
+
+            .footer-links a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .about-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-section img {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+
+            .features-grid, .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .contact-form {
+                padding: 40px;
+            }
+
+            .contact-form h2 {
+                font-size: 30px;
+            }
+
+            .footer-links a {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <img src="Jemena-logo.png" alt="Loading Logo" id="loading-logo">
+    </div> 
+
+    <!-- Top Bar with Contact Info -->
+    <div class="top-nav">
+        <div class="company-name">
+            <img src="Jemena-logo.png" alt="Jemena Trading Logo">
+            Jemena Trading Limited
+        </div>
+        <div class="contact-info-bar">
+            <div>
+                <i class="fas fa-clock"></i> Mon-Fri: 8:00am - 5:00pm | Sat: 8:00am - 1:00pm
+            </div>
+            <div>
+                <i class="fas fa-phone"></i> <a href="tel:0795792234">Tel No.0795792234</a>
+            </div>
+            <div>
+                <i class="fas fa-envelope"></i> <a href="mailto:info@jemnatrading.co.ke">info@jemnatrading.co.ke</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+           <li><a href="#home">Home</a></li>
+           <li><a href="#about">About Us</a></li>
+           <li>
+               <a href="#products">Our Products</a>
+               <ul class="dropdown">
+                  <li><a href="soap_detergents.html">Soap & Detergents</a></li>
+                  <li><a href="solvents.html">Solvents</a></li>
+                  <li><a href="water_treatment.html">Water Treatment</a></li>
+                  <li><a href="mining.html">Mining</a></li>
+                  <li><a href="food_industry.html">Food Industry</a></li>
+                  <li><a href="essential_oils.html">Essential Oils</a></li>
+                  <li><a href="cosmetics.html">Cosmetics</a></li>
+                </ul>
+            </li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Jemena Trading Limited</h1>
+        <p>Your Trusted Partner for Industrial & Speciality Chemicals</p>
+        <button onclick="window.location.href='#products'">Explore Our Products</button>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-section" id="about">
+       <div class="about-content">
+        <!-- Image Slideshow -->
+          <div class="image-slideshow">
+            <div class="slideshow-container">
+                <div class="slide"><img src="IMG_9965.jpg" alt="Chemical Lab"></div>
+                <div class="slide"><img src="IMG_9895.jpg" alt="Lab Equipment"></div>
+                <div class="slide"><img src="IMG_9852.jpg" alt="Chemical Storage"></div>
+            </div>
+        </div>
+
+        <!-- About Us Text Content -->
+        <div class="about-text">
+            <h2>About Jemena Trading Limited</h2>
+            <p>Welcome to Jemena Trading Limited, your trusted partner in supplying high-quality industrial chemicals, reagents, and specialty chemicals to various sectors. With a focus on excellence and tailored solutions, we serve industries from water treatment to food production, mining, cosmetics, and beyond.</p>
+            <p>Located in Industrial Area, Nairobi, Kenya, we’re committed to sustainable practices and compliance with global standards. Our team strives to deliver flexible chemical solutions that empower industries to thrive.</p>
+        </div>
+    </div>
+</section>
+
+    
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us-section">
+      <h2>Why Choose Jemena Trading Limited</h2>
+      <div class="why-choose-us-grid">
+        <div class="why-item">
+            <div class="icon">&#9733;</div> <!-- Star Icon -->
+            <h3>Industry Expertise</h3>
+            <p>Over 20 years of experience across various sectors, providing top-notch solutions tailored to your needs.</p>
+        </div>
+        <div class="why-item">
+            <div class="icon">&#128736;</div> <!-- Tool Icon -->
+            <h3>Flexible Solutions</h3>
+            <p>From industrial-grade reagents to custom formulations, we ensure flexible, diverse solutions.</p>
+        </div>
+        <div class="why-item">
+            <div class="icon">&#128176;</div> <!-- Dollar Icon -->
+            <h3>Cost-Effective</h3>
+            <p>Competitive pricing and quality through strong supplier networks and economies of scale.</p>
+        </div>
+        <div class="why-item">
+            <div class="icon">&#127758;</div> <!-- Globe Icon -->
+            <h3>Commitment to Sustainability</h3>
+            <p>Adhering to strict environmental standards, supporting your eco-friendly initiatives with sustainable options.</p>
+        </div>
+    </div>
+</section>  
+
+<!-- Products Section -->
+<section class="products-section" id="products">
+    <h2>Our Products</h2>
+    <div class="products-grid">
+        <div class="product-category">
+            <img src="soapp.jpg" alt="Soap & Detergents" class="product-image">
+            <h3><a href="soap_detergents.html">Soap & Detergents</a></h3>
+            <p>Find our products for soap and detergent manufacturing.</p>
+        </div>
+        <div class="product-category">
+            <img src="s1.jpg" alt="Solvents" class="product-image">
+            <h3><a href="solvents.html">Solvents</a></h3>
+            <p>Discover various solvents for different applications.</p>
+        </div>
+        <div class="product-category">
+            <img src="w2.jpg" alt="Water Treatment" class="product-image">
+            <h3><a href="water_treatment.html">Water Treatment</a></h3>
+            <p>Explore our range of water treatment chemicals.</p>
+        </div>
+        <div class="product-category">
+            <img src="caustic.jpg" alt="Mining" class="product-image">
+            <h3><a href="mining.html">Mining</a></h3>
+            <p>Check out our chemical solutions for the mining industry.</p>
+        </div>
+        <div class="product-category">
+            <img src="food.jpg" alt="Food Industry" class="product-image">
+            <h3><a href="food_industry.html">Food Industry</a></h3>
+            <p>Explore our food-grade chemicals for various applications.</p>
+        </div>
+        <div class="product-category">
+            <img src="ESSENTIAL OILS.png" alt="Essential Oils" class="product-image">
+            <h3><a href="essential_oils.html">Essential Oils</a></h3>
+            <p>Discover our selection of high-quality essential oils.</p>
+        </div>
+        <div class="product-category">
+            <img src="cosemetics.png" alt="Cosmetics" class="product-image">
+            <h3><a href="cosmetics.html">Cosmetics</a></h3>
+            <p>Find our chemicals designed for cosmetic products.</p>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Location Section -->
+    <section class="location" id="location">
+        <h2>Our Location</h2>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7763296078792!2d36.86137767496555!3d-1.3094907986780733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f11bef20682d9%3A0x50cf0c999c4707a6!2sJemena%20Trading%20Ltd!5e0!3m2!1sen!2ske!4v1728630920230!5m2!1sen!2ske"></iframe>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form" id="contact">
+      <h2>Contact Us</h2>
+      <form action="mailto:info@jemenatrading.co.ke" method="post" enctype="text/plain">
+        <div class="form-group">
+            <input type="text" name="name" required>
+            <label>Your Name</label>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" required>
+            <label>Your Email</label>
+        </div>
+        <div class="form-group">
+            <textarea name="message" required></textarea>
+            <label>Your Message</label>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Logo Section -->
+            <div class="footer-logo">
+                <img src="jemena-logo.png" alt="Jemena Trading Logo">
+            </div>
+
+            <!-- Contact Information -->
+            <div class="footer-contacts">
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <p>+254 795 792 234</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>info@jemenatrading.co.ke</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Rangwe Road, Off Lunga Lunga Rd, Nairobi</p>
+                </div>
+            </div>
+
+            <!-- Footer Links -->
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#products">Our Products</a>
+                <a href="#location">Location</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <!-- Footer Image (Optional) -->
+            <div class="footer-image">
+                <img src=".jpg" alt="Footer Image">
+            </div>
+        </div>
+
+        <p>&copy; 2024 Jemena Trading Limited. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Loading Screen and Scroll Animations -->
+    <script>
+        // Remove loading screen once page is fully loaded
+        window.addEventListener("load", () => {
+            const loadingScreen = document.getElementById("loading-screen");
+            setTimeout(() => {
+               loadingScreen.style.display = "none"; // Hide the loading screen
+               document.body.classList.add("loaded"); // Allow scrolling
+            }, 3500);
+        });
+
+        function animateOnScroll() {
+            const scrollElements = document.querySelectorAll(".scroll-animation");
+            const logo = document.getElementById("logo");
+
+            scrollElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (elementTop < windowHeight - 50) {
+                    el.classList.add("show");
+                } else {
+                    el.classList.remove("show");
+                }
+            });
+
+            // Apply rotation to logo based on scroll position
+            const scrollPosition = window.scrollY;
+            const rotation = scrollPosition / 5;  // Adjust rotation speed by changing divisor
+            logo.style.transform = `rotate(${rotation}deg)`;
+        }
+
+        window.addEventListener("scroll", animateOnScroll);
+        window.addEventListener("load", animateOnScroll);
+    </script>
+
+</body>
+</html>

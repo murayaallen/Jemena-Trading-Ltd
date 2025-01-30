@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jemena Trading Limited</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #ff9800;
+        }
+
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #loading-logo {
+            width: 200px;
+            animation: pulseGlow 1s infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px #ff0000) drop-shadow(0 0 20px #ff0000) drop-shadow(0 0 30px #0000ff);
+            }
+            50% {
+                filter: drop-shadow(0 0 20px #ff0000) drop-shadow(0 0 30px #0000ff) drop-shadow(0 0 40px #0000ff);
+            }
+        }
+
+        /* Fullscreen Hero Section */
+        .hero {
+            background: url('images/_MG_1725L.jpg') no-repeat center center/cover;
+            background-position:  top center;
+            height: 120vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            color: white;
+            
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            z-index: 2;
+        }
+
+        .hero button {
+            padding: 15px 30px;
+            background-color: #004080;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            z-index: 2;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .hero button:hover {
+            transform: scale(1.1);
+            background-color: #004080;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .company-name {
+            display: flex;
+            align-items: center;
+        }
+
+        .company-name img {
+            width: 70px;
+            margin-right: 15px;
+        }
+
+        .company-name span {
+            color: #f1f1f1;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        nav {
+            margin-right: 30px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 5px 10px;
+        }
+
+        nav ul li a:hover {
+            color: #d10000;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #002999;
+            color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        nav ul li:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown li {
+            white-space: nowrap;
+        }
+
+        .dropdown li a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+        }
+
+        .dropdown li a:hover {
+            background-color: #d40000;
+            color: white;
+        }
+
+        /* Opening Hours */
+        .opening-hours {
+            position: absolute;
+            top: 55px;
+            left: 20px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* About Us Section */
+        .about-section {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .about-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .learn-more-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #004080;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 30px;
+            text-align: center; /* Ensures text is centered */
+            line-height: 1.5; /* Balances text height */
+            margin-top: 20px;
+            transition: background 0.3s ease;
+            cursor: pointer; /* Adds a pointer for interactivity */
+        }
+
+        .learn-more-btn:hover {
+            background: #e61414;
+        }
+
+        /* Statistics Section */
+        .company-statistics {
+            background: #000;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        .statistics-caption {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .company-statistics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .stat-item .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #287be9;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: #0e47e2;
+        }
+
+        .stat-item p {
+            font-size: 1rem;
+            color: #ddd;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 50px 20px;
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        /* Full-Screen Background Image */
+        .products-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/IMG_2223.jpg') no-repeat center center/cover;
+            z-index: -1;
+        }
+
+        /* Dark Overlay */
+        .products-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay for contrast */
+            z-index: -1;
+        }
+
+        .products-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap to the next line */
+            justify-content: center; /* Center items on the line */
+            gap: 20px;
+        }
+
+        .product-category {
+            background-color: #000000; /* White background for product cards */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 123, 255, 0); /* Base shadow with no glow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation for hover effect */
+            overflow: hidden; /* Ensures image doesn't overflow */
+            width: 300px; /* Fixed width for consistency */
+            height: 400px; /* Fixed height for all cards */
+            display: flex;
+            flex-direction: column; /* Arrange content vertically */
+            justify-content: space-between; /* Distribute content evenly */
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-category:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 123, 255, 0.6); /* Glow effect on hover */
+        }
+
+        /* Glowing border */
+        .product-category::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            bottom: -10px;
+            left: -10px;
+            right: -10px;
+            background: linear-gradient(45deg, rgba(0, 123, 255, 0.3), rgba(0, 255, 123, 0.3));
+            border-radius: 12px; /* Slightly larger radius than the card */
+            opacity: 0; /* Initially hidden */
+            z-index: -1;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+.product-category:hover::before {
+    opacity: 1; /* Show glowing border */
+    transform: scale(1.05); /* Slightly enlarge the glow */
+}
+
+.product-image {
+    width: 100%; /* Full width inside the card */
+    height: 200px; /* Fixed height for uniform image size */
+    object-fit: cover; /* Ensures image fits within dimensions without distortion */
+    border-bottom: 4px solid #007bff; /* Blue accent line under images */
+}
+
+.product-category h3 {
+    font-size: 1.5rem;
+    margin: 15px 0;
+}
+
+.product-category h3 a {
+    text-decoration: none; /* Remove underline from links */
+    color: #007bff; /* Blue color for links */
+    transition: color 0.3s ease; /* Color change on hover */
+}
+
+.product-category h3 a:hover {
+    color: #0056b3; /* Darker blue on hover */
+}
+
+.product-category p {
+    color: #666; /* Grey color for product descriptions */
+    padding: 0 15px 20px; /* Padding for description text */
+    flex-grow: 1; /* Makes text take up available space for alignment */
+}
+
+    /* Location Section */
+    .location {
+        padding: 0; /* Remove default padding to make it full-screen */
+        text-align: center;
+        background-color: #f8f9fa;
+        position: relative; /* For text overlay */
+        height: 100vh; /* Full-screen height */
+    }
+
+    .location h2 {
+        position: absolute;
+        top: 20px; /* Position the heading at the top */
+        left: 50%;
+        transform: translateX(-50%);
+        color: #004080;
+        font-size: 32px;
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+        padding: 10px 20px;
+        border-radius: 8px;
+        z-index: 2;
+    }
+
+    .location iframe {
+        width: 100%;
+        height: 100%; /* Ensure the map takes the full height */
+        border: none;
+    }
+
+    /* Contact Section */
+    .contact-form-section {
+        padding: 80px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        background: url('images/IMG_2223.jpg') no-repeat center center/cover;
+        position: relative;
+        color: #ffffff;
+        overflow: hidden;
+        gap: 40px;
+        flex-wrap: wrap; /* Ensures responsiveness for smaller screens */
+    }
+
+    /* Dark Overlay */
+    .contact-form-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+        z-index: 0;
+        backdrop-filter: blur(5px);
+    }
+
+    .contact-form-section h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        color: #ffcc00;
+        font-family: 'Poppins', sans-serif;
+        z-index: 1;
+    }
+
+    /* Contact Form Styling */
+    .contact-form {
+        flex: 1;
+        max-width: 50%; /* Half the screen for form */
+        position: relative;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 40px 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        animation: slideUp 1.2s ease-in-out;
+    }
+
+    .form-group {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        color: #fff;
+        outline: none;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        background-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group label {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        color: #ffcc00;
+        font-size: 14px;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        transform: translateY(-50%);
+    }
+
+    .form-group input:focus + label,
+    .form-group textarea:focus + label,
+    .form-group input:not(:placeholder-shown) + label,
+    .form-group textarea:not(:placeholder-shown) + label {
+        top: -10px;
+        font-size: 12px;
+        color: #ffcc00;
+    }
+
+    .form-group textarea {
+        min-height: 120px;
+        resize: none;
+    }
+
+    /* Submit Button */
+    .contact-form button {
+        padding: 15px 30px;
+        background-color: #ffcc00;
+        color: #333;
+        border: none;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-form button:hover {
+        transform: scale(1.05);
+        background-color: #e6b800;
+        box-shadow: 0 8px 20px rgba(255, 204, 0, 0.6);
+    }
+
+    /* Contact Details Styling */
+    .contact-details {
+        flex: 1;
+        max-width: 40%; /* Remaining space for contact details */
+        text-align: left;
+        position: relative;
+        z-index: 1;
+        font-size: 16px;
+    }
+
+    .contact-details h2 {
+        margin-bottom: 20px;
+        color: #ffcc00;
+    }
+
+    .contact-details p {
+        margin-bottom: 15px;
+        line-height: 1.8;
+        color: #fff;
+    }
+
+    .contact-details a {
+        color: #ffcc00;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .contact-details a:hover {
+        color: #e6b800;
+    }
+
+    /* Contact Image Styling */
+    .contact-image {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .contact-image img {
+        width: 100%;
+        max-width: 400px; /* Limit image size */
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-image img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+    
+        /* Footer Section */
+        .footer {
+        background-color: #012344; /* Dark blue background */
+        color: white;
+        text-align: center;
+        padding: 15px 10px;
+        position: relative;
+    }
+
+    .footer-container {
+        display: flex;
+        flex-wrap: wrap; /* Allow wrapping for smaller screens */
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 20px;
+    }
+
+    /* Logo Section */
+    .footer-logo img {
+        max-width: 150px;
+        border-radius: 10px;
+    }
+
+    /* Contact Information Section */
+    .footer-contacts {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        text-align: left;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .contact-item i {
+        font-size: 18px;
+        color: #ffcc00; /* Yellow icons for contrast */
+    }
+
+    .contact-item p {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    /* Footer Links Section */
+    .footer-links {
+        text-align: left;
+    }
+
+    .footer-links a {
+        color: #ffcc00; /* Yellow links */
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 14px;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: #fff; /* White on hover */
+    }
+
+    /* Footer Image Section */
+    .footer-image img {
+        max-width: 300px;
+        border-radius: 10px;
+    }
+
+    /* Copyright Text */
+    .footer p {
+        margin: 10px 0 0;
+        font-size: 14px;
+    }
+        /* Responsive Design for Smartphones */
+        @media (max-width: 768px) {
+            /* Loading Screen */
+            #loading-logo {
+                width: 120px; /* Adjust logo size */
+            }
+
+            /* Hero Section */
+            .hero {
+                padding: 20px;
+                text-align: center;
+                height: 100vh;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem; /* Adjust heading size */
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+
+            .hero button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+
+            /* Top Navigation */
+            .top-nav {
+                flex-direction: column;
+                text-align: center;
+                padding: 10px;
+            }
+
+            .company-name {
+                margin-bottom: 10px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                margin: 0;
+                padding: 0;
+            }
+
+            nav ul li a {
+                padding: 10px;
+                font-size: 1rem;
+            }
+
+            /* Opening Hours */
+            .opening-hours {
+                font-size: 0.9rem;
+                text-align: center;
+                margin-top: 10px;
+            }
+        }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 768px) {
+            .about-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-text p {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .learn-more-btn {
+                font-size: 0.9rem;
+            }
+
+            .statistics-caption {
+                font-size: 1rem;
+            }
+
+            .stat-item h3 {
+                font-size: 1.8rem;
+            }
+
+            .stat-item p {
+                font-size: 0.9rem;
+            }
+        }
+         /* Responsive Design for Mobile */
+        @media (max-width: 1024px) {
+            .products-grid {
+                flex-direction: column; /* Stack cards vertically on smaller screens */
+            }
+
+            .products-section h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr; /* Single card per row for small screens */
+            }
+
+            .product-category {
+                max-width: 100%; /* Allow full width */
+            }
+        }
+
+    /* Responsive Design for Mobile */
+    @media (max-width: 768px) {
+        .location h2 {
+            font-size: 24px; /* Adjust heading size for smaller screens */
+            top: 10px; /* Reduce distance from the top */
+            padding: 8px 15px; /* Adjust padding for smaller screens */
+        }
+
+        .location iframe {
+            height: calc(100vh - 50px); /* Ensure the map fits well under the heading */
+        }
+    }
+
+    /* Responsive Design for Mobile */
+    @media (max-width: 768px) {
+        .contact-form-section {
+            flex-direction: column;
+            padding: 40px 15px;
+        }
+
+        .contact-form, .contact-details {
+            max-width: 100%; /* Take full width */
+        }
+
+        .contact-form {
+            margin-bottom: 30px; /* Add spacing between form and details */
+        }
+
+        .contact-details h2 {
+            font-size: 28px;
+        }
+    }
+        /* Responsive Design for Mobile */
+        @media (max-width: 768px) {
+        .footer-container {
+            flex-direction: column; /* Stack all elements vertically */
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-contacts {
+            align-items: center; /* Center-align contact details */
+        }
+
+        .contact-item {
+            justify-content: center; /* Center-align contact items */
+        }
+
+        .footer-links {
+            margin-top: 15px;
+        }
+
+        .footer-image img {
+            max-width: 200px; /* Smaller image for mobile */
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <img src="images/Jemena-logo.png" alt="Loading Logo" id="loading-logo">
+    </div>
+
+    <!-- Top Navigation -->
+    <div class="top-nav">
+        <div class="company-name">
+            <img src="images/Jemena-logo.png" alt="Jemena Trading Logo">
+            <span>Jemena Trading Limited</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="about-us.html">About Us</a></li>
+                <li>
+                    <a href="#products">Our Products</a>
+                    <ul class="dropdown">
+                        <li><a href="soap_detergents.html">Soap & Detergents</a></li>
+                        <li><a href="solvents.html">Solvents</a></li>
+                        <li><a href="water_treatment.html">Water Treatment</a></li>
+                        <li><a href="mining.html">Mining</a></li>
+                        <li><a href="food_industry.html">Food Industry</a></li>
+                        <li><a href="essential_oils.html">Essential Oils</a></li>
+                        <li><a href="cosmetics.html">Cosmetics</a></li>
+                    </ul>
+                </li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#location">Location</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Opening Hours -->
+    <div class="opening-hours">
+        <p>Mon-Fri: 8:00am - 5:00pm | Sat: 8:00am - 2:00pm</p>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Jemena Trading Limited</h1>
+        <p>Your Trusted Partner for Industrial & Speciality Chemicals</p>
+        <button onclick="window.location.href='#products'">Explore Our Products</button>
+    </section>
+
+    <!-- About Us Section -->
+    <div class="container">
+        <div class="about-section" id="about jemena trading limited">
+            <!-- Image -->
+            <div class="about-image">
+                <img src="images/_MG_1563.jpg" alt="About Jemena">
+            </div>
+
+            <!-- About Text -->
+            <div class="about-text">
+                <h2>About Jemena Trading Limited</h2>
+                <p>Jemena Trading Limited is your trusted partner in the supply of high-quality industrial chemicals, reagents, and specialty chemicals. With decades of experience, we have built a reputation for delivering tailored chemical solutions that empower industries to thrive.</p>
+                <p>Our comprehensive portfolio serves diverse industries such as water treatment, food production, mining, cosmetics, and more. Located in Industrial Area, Nairobi, Kenya, we’re dedicated to excellence, sustainability, and global compliance.</p>
+                <p>We pride ourselves on ensuring seamless delivery, flexible supply options, and personalized customer service, helping businesses achieve their operational goals with efficiency and reliability.</p>
+                <a href="about-us.html" class="learn-more-btn">Learn More</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="company-statistics">
+        <!-- Quote -->
+        <div class="statistics-caption">
+            <p>"Empowering industries with numbers that tell a story of trust, experience, and reliability."</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="company-statistics-grid">
+            <div class="stat-item" data-target="600">
+                <div class="icon">👥</div>
+                <h3>0</h3>
+                <p>+ Clients Served</p>
+            </div>
+            <div class="stat-item" data-target="5000">
+                <div class="icon">🚚</div>
+                <h3>0</h3>
+                <p>+ Tonnes of Chemicals Delivered</p>
+            </div>
+            <div class="stat-item" data-target="17">
+                <div class="icon">⏳</div>
+                <h3>0</h3>
+                <p>+ Years of Industry Experience</p>
+            </div>
+            <div class="stat-item" data-target="200">
+                <div class="icon">⚗️</div>
+                <h3>0</h3>
+                <p>+ Various Chemicals Available</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <h2>Our Products</h2>
+        <div class="products-grid">
+            <div class="product-category">
+                <img src="images/soapp.jpg" alt="Soap & Detergents" class="product-image">
+                <h3><a href="soap_detergents.html">Soap & Detergents</a></h3>
+                <p>Find our products for soap and detergent manufacturing.</p>
+            </div>
+            <div class="product-category">
+                <img src="images/s1.jpg" alt="Solvents" class="product-image">
+                <h3><a href="solvents.html">Solvents</a></h3>
+                <p>Discover various solvents for different applications.</p>
+            </div>
+            <div class="product-category">
+                <img src="images/w2.jpg" alt="Water Treatment" class="product-image">
+                <h3><a href="water_treatment.html">Water Treatment</a></h3>
+                <p>Explore our range of water treatment chemicals.</p>
+            </div>
+            <div class="product-category">
+                <img src="images/caustic.jpg" alt="Mining" class="product-image">
+                <h3><a href="mining.html">Mining</a></h3>
+                <p>Check out our chemical solutions for the mining industry.</p>
+            </div>
+            <div class="product-category">
+                <img src="images/food.jpg" alt="Food Industry" class="product-image">
+                <h3><a href="food_industry.html">Food Industry</a></h3>
+                <p>Explore our food-grade chemicals for various applications.</p>
+            </div>
+            <div class="product-category">
+                <img src="images/ESSENTIAL OILS.png" alt="Essential Oils" class="product-image">
+                <h3><a href="essential_oils.html">Essential Oils</a></h3>
+                <p>Discover our selection of high-quality essential oils.</p>
+            </div>
+            <div class="product-category">
+                <img src="images/cosemetics.png" alt="Cosmetics" class="product-image">
+                <h3><a href="cosmetics.html">Cosmetics</a></h3>
+                <p>Find our chemicals designed for cosmetic products.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location" id="location">
+        <h2>Our Location</h2>
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7763296078792!2d36.86137767496555!3d-1.3094907986780733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f11bef20682d9%3A0x50cf0c999c4707a6!2sJemena%20Trading%20Ltd!5e0!3m2!1sen!2ske!4v1728630920230!5m2!1sen!2ske" 
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </section>
+
+        <!-- Contact Form Section -->
+        <section class="contact-form-section" id="contact">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2>Send Us a Message</h2>
+                <form action="mailto:info@jemenatrading.co.ke" method="post" enctype="text/plain">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder=" " required>
+                        <label>Your Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder=" " required>
+                        <label>Your Email</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder=" " required></textarea>
+                        <label>Your Message</label>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        
+            <!-- Contact Details -->
+            <div class="contact-details">
+                <h2>Contact Details</h2>
+                <p><strong>Jemena Trading Limited</strong></p>
+                <p>Rangwe Road, Off Lunga Lunga Rd, Nairobi</p>
+                <p>
+                    Tel No: 
+                    <a href="tel:+254795792234">+254 795 792 234</a>
+                </p>
+                <p>
+                    Email: 
+                    <a href="mailto:info@jemenatrading.co.ke">info@jemenatrading.co.ke</a>
+                </p>
+                <!-- Contact Image -->
+                <div class="contact-image">
+                    <img src="images/Jemena-logo.png" alt="Jemena Location">
+                </div>
+            </div>
+        </section>
+            <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <!-- Logo Section -->
+                <div class="footer-logo">
+                    <img src="images/Jemena-logo.png" alt="Jemena Trading Logo">
+                </div>
+        
+                <!-- Contact Information -->
+                <div class="footer-contacts">
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <p><a href="tel:+254795792234" style="color: #ffcc00;">+254 795 792 234</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p><a href="mailto:info@jemenatrading.co.ke" style="color: #ffcc00;">info@jemenatrading.co.ke</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Rangwe Road, Off Lunga Lunga Rd, Nairobi</p>
+                    </div>
+                </div>
+        
+                <!-- Footer Links -->
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about jemena trading limited">About Us</a>
+                    <a href="#products">Our Products</a>
+                    <a href="#location">Location</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        
+            <p>&copy; 2024 Jemena Trading Limited. All rights reserved.</p>
+        </footer>  
+
+    <!-- JavaScript for Loading Screen -->
+    <script>
+        window.onload = function () {
+            // Delay hiding the loading screen by 3 seconds (3000 ms)
+            setTimeout(function () {
+                document.getElementById('loading-screen').style.display = 'none';
+            }, 3000);
+        };
+    </script>
+        <!-- JavaScript for Animations -->
+        <script>
+            // Function to animate numbers
+            function animateNumber(element, target) {
+                let current = 0;
+                const duration = 2000;
+                const increment = Math.ceil(target / 100);
+                const interval = duration / (target / increment);
+    
+                const updateNumber = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(updateNumber);
+                    }
+                    element.textContent = current;
+                }, interval);
+            }
+    
+            // Function to trigger number animation
+            function triggerNumberAnimation(entries, observer) {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const statNumber = entry.target.querySelector('h3');
+                        const target = parseInt(entry.target.getAttribute("data-target"), 10);
+                        animateNumber(statNumber, target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }
+    
+            // Intersection Observer
+            const statItems = document.querySelectorAll(".stat-item");
+            const statObserver = new IntersectionObserver(triggerNumberAnimation, { threshold: 0.5 });
+    
+            statItems.forEach((item) => statObserver.observe(item));
+        </script>
+</body>
+
+</html>
